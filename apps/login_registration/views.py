@@ -11,6 +11,11 @@ def index(request):
         request.session['logged'] = False
     return render(request, 'login_registration/index.html')
 
+def v2(request):
+    if 'logged' not in request.session:
+        request.session['logged'] = False
+    return render(request, 'login_registration/index2.html')
+
 def register(request):
 
     #---------- Validate Registration Attempt ----------
