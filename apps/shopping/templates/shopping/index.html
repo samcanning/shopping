@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+    <title>Store</title>
+</head>
+<body>
+    <p><a href='/logout'>Log Out</a> | <a href='/store/cart'>Your Cart ({{request.session.cartsize}})</a></p>
+    <h2>All products:</h2>
+    {% for product in products %}
+        {% if product.subcategory.count == 1 %}
+        <p><a href='/store/product/{{product.id}}'>{{product.name}}</a> - ${{product.price}} <span class='smalltext'>(<a href='/store/category/{{product.category.id}}'>{{product.category.name}}</a> - <a href='/store/category/{{product.category.id}}/{{product.subcategory.first.id}}'>{{product.subcategory.first.name}})</a> - <a href='/store/addtocart/{{product.id}}'>Add to cart</a></span></p>
+        {% elif product.subcategory.count == 2 %}
+        <p><a href='/store/product/{{product.id}}'>{{product.name}}</a> - ${{product.price}} <span class='smalltext'>(<a href='/store/category/{{product.category.id}}'>{{product.category.name}}</a> - <a href='/store/category/{{product.category.id}}/{{product.subcategory.first.id}}'>{{product.subcategory.first.name}}</a> / <a href='/store/category/{{product.category.id}}/{{product.subcategory.last.id}}'>{{product.subcategory.last.name}})</a> - <a href='/store/addtocart/{{product.id}}'>Add to cart</a></span></p>
+        {% endif %}
+    {% endfor %}
+    {% if request.session.user_id == 1 %}
+    <p><a href='/store/newproducts'>Create new products</a></p>
+    {% endif %}
+    <h2>All categories:</h2>
+    {% for category in categories %}
+    <p><a href='/store/category/{{category.id}}'>{{category.name}}</a></p>
+    {% endfor %}
+</body>
+</html>

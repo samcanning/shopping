@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action='/store/create' method='post'>
+    {%csrf_token%}
+    <h2>create product</h2>
+    name <input type='text' name='name'><br><br>
+    price <input type='text' name='price'><br><br>
+    existing category
+    <select name='category'>
+        {% for category in categories %}
+        <option value='{{category.id}}'>{{category.name}}</option>
+        {% endfor %}
+    </select><br><br>
+    existing subcategory
+    <select name='subcategory'>
+        {% for subcategory in subcategories %}
+        <option value='{{subcategory.id}}'>{{subcategory.name}}</option>
+        {% endfor %}
+    </select><br><br>
+    <input type='submit' value='create'>
+    </form><br>
+    <h2>new category</h2>
+    <form action='/store/newcategory' method='post'>
+    {%csrf_token%}
+    new category name <input type='text' name='name'><br><br>
+    <input type='submit' value='create'>
+    </form><br>
+    <h2>new subcategory</h2>
+    <form action='/store/newsubcategory' method='post'>
+    {%csrf_token%}
+    new subcategory name <input type='text' name='name'><br><br>
+    category of new subcategory
+    <select name='category'>
+        {% for category in categories %}
+        <option value='{{category.id}}'>{{category.name}}</option>
+        {% endfor %}
+    </select><br><br>
+    <input type='submit' value='create'>
+    </form>
+</body>
+</html>
